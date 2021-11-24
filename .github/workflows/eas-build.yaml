@@ -2,7 +2,7 @@ name: EAS build
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   build:
     name: Create new build
