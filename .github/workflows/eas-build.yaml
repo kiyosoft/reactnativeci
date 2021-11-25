@@ -1,20 +1,32 @@
-name: EAS build
+name: EAS Build
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
 jobs:
   build:
-    name: Create new build
+    name: Install and build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-      - uses: expo/expo-github-action@v6
+          node-version: 16.x
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v5
         with:
-          eas-version: latest
-          token: nLKsMtYTS3LvX9Q1Be8sbymKbiRcgIIx1gu63ND2
-      - run: yarn install
-      - run: eas build --profile preview --platform android
+          expo-version: 4.x
+          expo-token: nLKsMtYTS3LvX9Q1Be8sbymKbiRcgIIx1gu63ND2
+          expo-cache: true
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build on EAS
+        run: npx eas-cli build --platform all --non-interactive

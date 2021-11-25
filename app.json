@@ -1,4 +1,8 @@
 {
   "name": "reactnativeci",
-  "displayName": "reactnativeci"
+  "displayName": "reactnativeci",
+  "expo": {
+    "name": "reactnativeci",
+    "slug": "reactnativeci"
+  }
 }
